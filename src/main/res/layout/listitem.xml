@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/title_TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        tools:text="Title" />
+
+    <TextView
+        android:id="@+id/author_TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        tools:text="Author" />
+
+    <TextView
+        android:id="@+id/date_TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/title_TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        tools:text="2018" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@id/author_TextView"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/ratingsCount"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@id/author_TextView"
+        android:layout_toRightOf="@id/ratingBar"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:visibility="gone"
+        tools:text="459" />
+</RelativeLayout>
