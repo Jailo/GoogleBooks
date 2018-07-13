@@ -14,6 +14,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Book>> {
@@ -21,14 +23,23 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public static final String LOG_TAG = MainActivity.class.getName();
 
     /**
+     * Adapter for the list view
+     */
+    private BooksAdapter adapter;
+
+    /**
      * Search bar text
      */
     private static String searchText = "Green Eggs And Ham";
+    private TextView errorTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Create new adapter that takes an empty ArrayList
+        adapter = new BooksAdapter(getBaseContext(), new ArrayList<Book>());
 
         // Find resource for the progress bar spinner
         final ProgressBar progressBar = findViewById(R.id.progress_bar);
@@ -36,10 +47,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         // Find resource for the List View
         ListView listView = findViewById(R.id.list_view);
 
-        // Find resource for error text view
-        TextView errorTextView = findViewById(R.id.error_text_view);
-        errorTextView.setText("Can't show any books right now, sorry");
+        // Set adapter on listView
+        listView.setAdapter(adapter);
 
+        // Find resource for error text view
+        errorTextView = findViewById(R.id.error_text_view);
+
+        // Set the adapter to the listView so that the list can be seen
         listView.setEmptyView(errorTextView);
 
         // Get referance to Connectivity Manager to check the state of network connectivity
@@ -54,9 +68,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
             // Create Resouce for Loader Manager
             final LoaderManager loaderManager = getLoaderManager();
-
-//            // Initiate Loader
-//            loaderManager.initLoader(0, null, this);
 
             // Find resource for search bar
             SearchView searchBar = findViewById(R.id.search_bar);
@@ -106,12 +117,24 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         Log.v(LOG_TAG, "On Load Finished");
 
+        adapter.clear();
+
+        if (!data.isEmpty()) {
+            adapter.addAll(data);
+            Log.v(LOG_TAG, "first book in List: " + data.get(0).getTitle());
+        } else {
+            errorTextView.setText("Can't show any books right now, sorry");
+        }
+
+
+
 
     }
 
     @Override
     public void onLoaderReset(Loader<List<Book>> loader) {
-
+        // Clear the adapter and reset the loader
+        adapter.clear();
         loader.reset();
 
     }

@@ -1,7 +1,6 @@
 package com.example.jaielalondon.googlebooks;
 
 import android.text.TextUtils;
-import android.util.JsonReader;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -42,16 +41,20 @@ public final class QueryUtils {
         // Create url with the search bar text
         URL url = createUrl(searchBarText);
 
+        List<Book> books = new ArrayList<>();
+
         try {
-            // Make HTTP Request on the newly created url
-            makeHttpRequest(url);
+            // Call method that gets data from the JSON String that is provided
+            //  by the ake HTTP Request that is made with the newly created url
+            books = getJsonData(makeHttpRequest(url));
 
 
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error making HTTP request", e);
         }
 
-        return null;
+        Log.v(LOG_TAG, "Books list: " + books);
+        return books;
     }
     /**
      * Creates a URL object from google books search URI and the search bar text
@@ -99,9 +102,6 @@ public final class QueryUtils {
                 // to set jsonResponse to a long string of JSON text
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
-
-                // Call method that gets data from the JSON provided
-                getJsonData(jsonResponse);
 
             } else {
                 // Log error response code

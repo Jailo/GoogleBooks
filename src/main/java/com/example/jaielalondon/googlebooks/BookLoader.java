@@ -21,10 +21,10 @@ public class BookLoader extends AsyncTaskLoader<List<Book>> {
 
     @Override
     public List<Book> loadInBackground() {
-        Log.v("BookLoader", "ON LOAD in background has begun!");
+        Log.v("BookLoader", "ON LOAD in background has begun YO!");
 
-        QueryUtils.getBookList(mSearchBarText);
-        return null;
+        List<Book> books = QueryUtils.getBookList(mSearchBarText);
+        return books;
     }
 
     @Override
