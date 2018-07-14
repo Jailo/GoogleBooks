@@ -1,5 +1,7 @@
 package com.example.jaielalondon.googlebooks;
 
+import android.graphics.drawable.Drawable;
+
 public class Book {
 
     /** Title of book */
@@ -16,6 +18,8 @@ public class Book {
 
     /** Number of people who rated the book */
     private int mRatingCount;
+
+    private Drawable mThumbnailImage;
 
 //    /**
 //     * Creates a new Book object
@@ -38,12 +42,14 @@ public class Book {
      * @param averageRating is the average rating of the book
      * @param ratingCount is the number of ratings
      */
-    public Book(String title, String author, String datePublished, Double averageRating, int ratingCount) {
+    public Book(String title, String author, String datePublished,
+                Double averageRating, int ratingCount, Drawable thumbnailImage) {
         mTitle = title;
         mAuthor = author;
         mDatePublished = datePublished;
         mAverageRating = averageRating;
         mRatingCount = ratingCount;
+        mThumbnailImage = thumbnailImage;
     }
 
 
@@ -63,4 +69,8 @@ public class Book {
 
     /** @return the number of how many people rated the book */
     public int getRatingCount() { return mRatingCount; }
+
+    public Drawable getmThumbnailImage() {
+        return mThumbnailImage;
+    }
 }

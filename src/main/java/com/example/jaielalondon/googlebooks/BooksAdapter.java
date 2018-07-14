@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -52,13 +53,14 @@ public class BooksAdapter extends ArrayAdapter<Book> {
         //Find resourse for ratings bar, and set stars to the books average rating (I.e 4/5 Stars)
         RatingBar ratingBar = (RatingBar) listItemView.findViewById(R.id.ratingBar);
         ratingBar.setRating(((float) currentBook.getAverageRating()));
-        Log.e(LOG_TAG, "Average rating: " + currentBook.getAverageRating());
 
         // Find resource for ratings count text view, and set text to the current books ratings count
         TextView ratingsCount = (TextView) listItemView.findViewById(R.id.ratingsCount);
         ratingsCount.setText(String.valueOf(currentBook.getRatingCount()));
 
-        Log.e(LOG_TAG, "Rating Count: " + currentBook.getRatingCount());
+        //Find resource for image view and set to the current books image
+        ImageView imageView = listItemView.findViewById(R.id.image);
+        imageView.setImageDrawable(currentBook.getmThumbnailImage());
 
 
         return listItemView;

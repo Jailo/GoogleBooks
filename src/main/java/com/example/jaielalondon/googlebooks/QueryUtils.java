@@ -1,5 +1,6 @@
 package com.example.jaielalondon.googlebooks;
 
+import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -175,7 +176,8 @@ public final class QueryUtils {
                 // get Object that holds info about the particular book
                 JSONObject volumeInfo = currentBook.getJSONObject("volumeInfo");
 
-                // Get the Book's Title, Author, Publish date, Average rating, and number of ratings
+                // Get the Book's Title, Author, Publish date, Average rating,
+                // number of ratings, and the thumbnail image
                 String title = volumeInfo.getString("title");
 
                 JSONArray authorsArray = volumeInfo.getJSONArray("authors");
@@ -187,7 +189,16 @@ public final class QueryUtils {
 
                 int ratingsCount = volumeInfo.optInt("ratingsCount");
 
-                books.add(new Book(title, author, publishedDate, averageRating, ratingsCount));
+                JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
+
+                String thumbnailImageUrl = imageLinks.getString("thumbnail");
+
+                //Create Drawable image from the thumbnail image url
+                Drawable image = getImageFromUrl(thumbnailImageUrl);
+
+                // Create new Book object and add it to the list
+                books.add(new Book(title, author, publishedDate, averageRating,
+                        ratingsCount, image));
 
             }
 
@@ -197,6 +208,25 @@ public final class QueryUtils {
         }
 
         return books;
+    }
+
+    /**
+     * Creates an Drawable image from a url
+     *
+     * @param url is the url string of the image
+     */
+    private static Drawable getImageFromUrl(String url) {
+
+        try {
+            InputStream inputStream = (InputStream) new URL(url).getContent();
+            Drawable drawable = Drawable.createFromStream(inputStream, url);
+
+            return drawable;
+        } catch (IOException e) {
+            Log.v(LOG_TAG, "Error getting image from url: " + e);
+        }
+
+        return null;
     }
 
 
