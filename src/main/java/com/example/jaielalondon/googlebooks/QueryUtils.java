@@ -62,7 +62,9 @@ public final class QueryUtils {
     private static URL createUrl(String searchBarText) {
         URL url = null;
 
-        String googleBooksUrl = "https://www.googleapis.com/books/v1/volumes?q=" + searchBarText;
+        //Create a url string with the google books http and the search bar text
+        String googleBooksUrl = "https://www.googleapis.com/books/v1/volumes?q="
+                + searchBarText.replaceAll("\\s+", "+");
 
         try {
             url = new URL(googleBooksUrl);
@@ -181,7 +183,12 @@ public final class QueryUtils {
 
                 String publishedDate = volumeInfo.getString("publishedDate");
 
-                books.add(new Book(title, author, publishedDate));
+                Double averageRating = volumeInfo.optDouble("averageRating");
+
+                int ratingsCount = volumeInfo.optInt("ratingsCount");
+
+                books.add(new Book(title, author, publishedDate, averageRating, ratingsCount));
+
             }
 
 

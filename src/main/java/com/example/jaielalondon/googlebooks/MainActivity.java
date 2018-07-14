@@ -119,10 +119,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         adapter.clear();
 
-        if (!data.isEmpty()) {
+        // If list of books (aka data) is NOT empty
+        // Then add all books to the adapter to show them in the  listview
+        if (data != null) {
             adapter.addAll(data);
-            Log.v(LOG_TAG, "first book in List: " + data.get(0).getTitle());
         } else {
+            //If the list of books is empty, set error text view text
             errorTextView.setText("Can't show any books right now, sorry");
         }
 
