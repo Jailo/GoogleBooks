@@ -1,14 +1,17 @@
 package com.example.jaielalondon.googlebooks;
 
+import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.Loader;
 import android.database.Cursor;
+import android.inputmethodservice.Keyboard;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -32,6 +35,30 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
      */
     private static String searchText = "Green Eggs And Ham";
     private TextView errorTextView;
+
+    /**
+     * This method hides the keyboard
+     */
+    public static void hideKeyboard(Activity activity) {
+
+        InputMethodManager inputMethodManager = (InputMethodManager)
+                activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+
+        //Find the currently focused view, so we can grab the correct window token from it
+        View view = activity.getCurrentFocus();
+
+        //If view has no focus, create a new one, so we can get a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    @Override
+    public Loader<List<Book>> onCreateLoader(int id, Bundle args) {
+
+        return new BookLoader(this, searchText);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +104,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 public boolean onQueryTextSubmit(String query) {
                     searchText = query;
 
+                    //Hide the keyboard
+                    hideKeyboard(MainActivity.this);
+
                     progressBar.setVisibility(View.VISIBLE);
 
                     //Restart the loader when the search button is clicked
@@ -104,9 +134,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     @Override
-    public Loader<List<Book>> onCreateLoader(int id, Bundle args) {
+    public void onLoaderReset(Loader<List<Book>> loader) {
+        // Clear the adapter and reset the loader
+        adapter.clear();
+        loader.reset();
 
-        return new BookLoader(this, searchText);
     }
 
     @Override
@@ -119,25 +151,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         adapter.clear();
 
-        // If list of books (aka data) is NOT empty
-        // Then add all books to the adapter to show them in the  listview
-        if (data != null) {
-            adapter.addAll(data);
-        } else {
+        if (data.isEmpty()) {
             //If the list of books is empty, set error text view text
-            errorTextView.setText("Can't show any books right now, sorry");
+            errorTextView.setText("Couldn't Not Find The Book You Were Looking For");
+        } else {
+            // otherwise, if the list of books (aka data) is NOT empty
+            // Then add all books to the adapter to show them in the  listview
+            adapter.addAll(data);
         }
 
 
-
-
     }
 
-    @Override
-    public void onLoaderReset(Loader<List<Book>> loader) {
-        // Clear the adapter and reset the loader
-        adapter.clear();
-        loader.reset();
-
-    }
 }
