@@ -62,7 +62,6 @@ public class BooksAdapter extends ArrayAdapter<Book> {
         ImageView imageView = listItemView.findViewById(R.id.image);
         imageView.setImageDrawable(currentBook.getmThumbnailImage());
 
-
         return listItemView;
     }
 }

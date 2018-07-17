@@ -6,8 +6,9 @@
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="100dp"
-        android:layout_height="130dp" />
+        android:layout_width="125dp"
+        android:layout_height="150dp"
+        android:scaleType="fitStart" />
 
     <TextView
         android:id="@+id/title_TextView"
@@ -31,12 +32,13 @@
     <TextView
         android:id="@+id/date_TextView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="32dp"
         android:layout_alignParentEnd="true"
         android:layout_below="@id/title_TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
+        android:gravity="center"
         tools:text="2018" />
 
     <RatingBar
@@ -46,7 +48,7 @@
         android:layout_below="@id/author_TextView"
         android:isIndicator="true"
         android:numStars="5"
-        android:layout_toRightOf="@id/image"
+        android:layout_toEndOf="@id/image"
         android:layout_height="wrap_content"
         android:stepSize="0.1" />
 
@@ -58,5 +60,5 @@
         android:layout_toRightOf="@id/ratingBar"
         android:gravity="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        tools:text="459" />
+        tools:text="0" />
 </RelativeLayout>

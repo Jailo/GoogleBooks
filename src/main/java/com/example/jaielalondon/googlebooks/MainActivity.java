@@ -2,6 +2,7 @@ package com.example.jaielalondon.googlebooks;
 
 import android.app.Activity;
 import android.app.LoaderManager;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.inputmethodservice.Keyboard;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -24,6 +26,11 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Book>> {
 
     public static final String LOG_TAG = MainActivity.class.getName();
+
+    /**
+     * Public empty Book Object that we can send to the BookInfoActivity
+     */
+    public static Book currentBook;
 
     /**
      * Adapter for the list view
@@ -130,6 +137,21 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             // Make progress bar invisible because we have finished loading
             progressBar.setVisibility(View.GONE);
         }
+
+        // When a book is clicked, show info page about that book
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                // create new intent to the book info activity
+                Intent i = new Intent(view.getContext(), BookInfoActivity.class);
+
+                currentBook = adapter.getItem(position);
+
+                startActivity(i);
+
+            }
+        });
 
     }
 
