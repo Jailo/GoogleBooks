@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         if (data.isEmpty()) {
             //If the list of books is empty, set error text view text
-            errorTextView.setText("Couldn't Not Find The Book You Were Looking For");
+            errorTextView.setText("Couldn't Find The Book You Were Looking For");
         } else {
             // otherwise, if the list of books (aka data) is NOT empty
             // Then add all books to the adapter to show them in the  listview

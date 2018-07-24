@@ -54,7 +54,6 @@ public final class QueryUtils {
             Log.e(LOG_TAG, "Error making HTTP request", e);
         }
 
-        Log.v(LOG_TAG, "Books list: " + books);
         return books;
     }
     /**
@@ -196,9 +195,37 @@ public final class QueryUtils {
                 //Create Drawable image from the thumbnail image url
                 Drawable image = getImageFromUrl(thumbnailImageUrl);
 
+                String description = volumeInfo.getString("description");
+
+                JSONArray categoriesArray = volumeInfo.optJSONArray("categories");
+                String genre = categoriesArray.getString(0);
+
+                int pageCount = volumeInfo.getInt("pageCount");
+
+                JSONObject saleInfo = currentBook.getJSONObject("saleInfo");
+
+                String forSale = saleInfo.getString("saleability");
+
+                String urlLink = volumeInfo.getString("infoLink");
+
+                String price;
+
+                if (forSale.equals("FOR_SALE")) {
+
+                    JSONObject retailPrice = saleInfo.getJSONObject("retailPrice");
+                    Double priceAmount = retailPrice.getDouble("amount");
+                    String currencyCode = retailPrice.getString("currencyCode");
+
+                    price = priceAmount + " " + currencyCode;
+
+                } else {
+                    // Book is not for sale, Make the price an empty string
+                    price = "";
+                }
+
                 // Create new Book object and add it to the list
                 books.add(new Book(title, author, publishedDate, averageRating,
-                        ratingsCount, image));
+                        ratingsCount, image, price, genre, pageCount, urlLink, description));
 
             }
 

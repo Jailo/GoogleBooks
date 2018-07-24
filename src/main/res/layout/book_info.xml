@@ -34,14 +34,22 @@
             android:layout_height="189dp"
             android:layout_below="@id/author"
             android:layout_centerHorizontal="true"
-            android:scaleType="fitStart" />
+            android:scaleType="fitCenter" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image"
+            android:layout_centerHorizontal="true"
+            tools:text="2018" />
 
         <RatingBar
             android:id="@+id/ratingBar"
             style="?android:attr/ratingBarStyleIndicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/image"
+            android:layout_below="@id/date"
             android:layout_centerHorizontal="true"
             android:isIndicator="true"
             android:numStars="5"
@@ -51,7 +59,7 @@
             android:id="@+id/ratingsCount"
             android:layout_width="wrap_content"
             android:layout_height="36dp"
-            android:layout_below="@id/image"
+            android:layout_below="@id/date"
             android:layout_toEndOf="@id/ratingBar"
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -70,6 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:id="@+id/price_layout_container"
                 android:orientation="vertical">
 
                 <TextView
@@ -77,13 +86,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    tools:text="Price" />
+                    android:text="Price" />
 
                 <TextView
                     android:id="@+id/price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/price_label"
                     android:layout_gravity="center"
                     tools:text="$13.99 USD" />
 
@@ -100,14 +108,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    tools:text="Genre" />
+                    android:text="Genre" />
 
                 <TextView
                     android:id="@+id/genre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/genre_label"
-                    android:layout_centerHorizontal="true"
                     android:layout_gravity="center"
                     tools:text="Business" />
 
@@ -126,7 +132,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textAlignment="center"
-                    tools:text="Pages" />
+                    android:text="Pages" />
 
                 <TextView
                     android:id="@+id/pages"
@@ -135,28 +141,6 @@
                     android:layout_gravity="center"
                     tools:text="236" />
 
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/date_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    tools:text="Released" />
-
-                <TextView
-                    android:id="@+id/date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    tools:text="2018" />
 
             </LinearLayout>
 
