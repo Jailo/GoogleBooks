@@ -208,7 +208,6 @@ public final class QueryUtils {
                 // Get the number of pages in the book
                 int pageCount = volumeInfo.getInt("pageCount");
 
-
                 // Get the Url link to where the book can be bought through google
                 String urlLink = volumeInfo.getString("infoLink");
 

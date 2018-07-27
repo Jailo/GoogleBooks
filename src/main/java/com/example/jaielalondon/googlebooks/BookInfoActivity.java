@@ -79,7 +79,7 @@ public class BookInfoActivity extends AppCompatActivity {
 
         // Find resources for pages text view and set text to the books number of pages
         TextView pages = findViewById(R.id.pages);
-        String pagesText = book.getPagesCount() + " " + R.string.pages;
+        String pagesText = String.valueOf(book.getPagesCount()) + " " + getString(R.string.pages);
         pages.setText(pagesText);
 
         //Find resource for description and set to the current books description
