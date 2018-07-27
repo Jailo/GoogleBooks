@@ -50,13 +50,23 @@ public class BooksAdapter extends ArrayAdapter<Book> {
         //Set datePublished date to be a substring of the datepublished that only shows the year
         datePublished.setText(currentBook.getDatePublished().substring(0, 4));
 
-        //Find resourse for ratings bar, and set stars to the books average rating (I.e 4/5 Stars)
+        //Find resourse for ratings bar
         RatingBar ratingBar = (RatingBar) listItemView.findViewById(R.id.ratingBar);
-        ratingBar.setRating(((float) currentBook.getAverageRating()));
 
-        // Find resource for ratings count text view, and set text to the current books ratings count
+        // Find resource for ratings count text view
         TextView ratingsCount = (TextView) listItemView.findViewById(R.id.ratingsCount);
-        ratingsCount.setText(String.valueOf(currentBook.getRatingCount()));
+
+        // If current book as 0 ratings, then hide the ratings bar and ratings count views
+        if (currentBook.getRatingCount() == 0) {
+            ratingBar.setVisibility(View.GONE);
+            ratingsCount.setVisibility(View.GONE);
+        } else {
+            // set ratings bar stars to the books average rating (I.e 4/5 Stars)
+            ratingBar.setRating(((float) currentBook.getAverageRating()));
+
+            // Set text to the current books ratings count
+            ratingsCount.setText(String.valueOf(currentBook.getRatingCount()));
+        }
 
         //Find resource for image view and set to the current books image
         ImageView imageView = listItemView.findViewById(R.id.image);

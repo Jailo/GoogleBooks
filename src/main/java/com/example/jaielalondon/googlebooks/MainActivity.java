@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Book>> {
+
 
     public static final String LOG_TAG = MainActivity.class.getName();
 
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     /**
      * Search bar text
      */
-    private static String searchText = "Green Eggs And Ham";
+    private static String searchText;
     private TextView errorTextView;
 
     /**
@@ -71,6 +73,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // KeyBoard is always hidden unless the user clicks on an editText field
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         // Create new adapter that takes an empty ArrayList
         adapter = new BooksAdapter(getBaseContext(), new ArrayList<Book>());
@@ -132,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         } else {
             // If the user is NOT connected to the internet
             // Display error message in error text view
-            errorTextView.setText("Not connected to the internet");
+            errorTextView.setText(R.string.no_internet);
 
             // Make progress bar invisible because we have finished loading
             progressBar.setVisibility(View.GONE);
@@ -175,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         if (data.isEmpty()) {
             //If the list of books is empty, set error text view text
-            errorTextView.setText("Couldn't Find The Book You Were Looking For");
+            errorTextView.setText(R.string.cant_find_book);
         } else {
             // otherwise, if the list of books (aka data) is NOT empty
             // Then add all books to the adapter to show them in the  listview

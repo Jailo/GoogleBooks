@@ -5,15 +5,16 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
-public class BookInfoActivity extends Activity {
+public class BookInfoActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = BookInfoActivity.class.getName();
 
@@ -21,6 +22,10 @@ public class BookInfoActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.book_info);
+
+        //Enable the Up button in the nav bar
+        getSupportActionBar().setHomeButtonEnabled(true);
+
 
         // Create a reference to the current book we want to display info on
         final Book book = MainActivity.currentBook;
@@ -33,13 +38,24 @@ public class BookInfoActivity extends Activity {
         TextView author = (TextView) findViewById(R.id.author);
         author.setText(book.getAuthor());
 
-        //Find resourse for ratings bar, and set stars to the books average rating (I.e 4/5 Stars)
+        //Find resourse for ratings bar
         RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        ratingBar.setRating(((float) book.getAverageRating()));
 
-        // Find resource for ratings count text view, and set text to the current books ratings count
+        // Find resource for ratings count text view
         TextView ratingsCount = (TextView) findViewById(R.id.ratingsCount);
-        ratingsCount.setText(String.valueOf(book.getRatingCount()));
+
+        // If current book as 0 ratings, then hide the ratings bar and ratings count views
+        if (book.getRatingCount() == 0) {
+            ratingBar.setVisibility(View.GONE);
+            ratingsCount.setVisibility(View.GONE);
+        } else {
+            // set ratings bar stars to the books average rating (I.e 4/5 Stars)
+            ratingBar.setRating(((float) book.getAverageRating()));
+
+            // Set text to the current books ratings count
+            ratingsCount.setText(String.valueOf(book.getRatingCount()));
+        }
+
 
         //Find resource for image view and set to the current books image
         ImageView imageView = findViewById(R.id.image);
@@ -55,15 +71,16 @@ public class BookInfoActivity extends Activity {
         //If the book's price is empty, meaning it is NOT for sale
         // then set the price text view visibility to gone
         if (book.getPrice().isEmpty()) {
-            LinearLayout priceLayout = (LinearLayout) findViewById(R.id.price_layout_container);
-            priceLayout.setVisibility(View.GONE);
+            TextView priceTextView = findViewById(R.id.price);
+            price.setVisibility(View.GONE);
         } else {
             price.setText(book.getPrice());
         }
 
         // Find resources for pages text view and set text to the books number of pages
         TextView pages = findViewById(R.id.pages);
-        pages.setText(String.valueOf(book.getPagesCount()));
+        String pagesText = book.getPagesCount() + " " + R.string.pages;
+        pages.setText(pagesText);
 
         //Find resource for description and set to the current books description
         TextView description = (TextView) findViewById(R.id.description);

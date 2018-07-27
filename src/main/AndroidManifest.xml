@@ -12,7 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTask">
+            <!-- singleTask is used so that when a Intent is called it goes to an already running
+            app rather than starting a new one-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

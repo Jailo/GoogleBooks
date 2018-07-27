@@ -34,6 +34,7 @@
             android:layout_height="189dp"
             android:layout_below="@id/author"
             android:layout_centerHorizontal="true"
+            android:contentDescription="@string/book_image_content_description"
             android:scaleType="fitCenter" />
 
         <TextView
@@ -74,75 +75,43 @@
             android:layout_marginTop="16dp"
             android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:id="@+id/price_layout_container"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/price_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Price" />
 
                 <TextView
                     android:id="@+id/price"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:textAlignment="center"
                     tools:text="$13.99 USD" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/genre_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Genre" />
+            <View
+                android:id="@+id/first_view"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#FF0000FF" />
 
                 <TextView
                     android:id="@+id/genre"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:maxLines="2"
+                    android:textAlignment="center"
                     tools:text="Business" />
 
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/pages_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textAlignment="center"
-                    android:text="Pages" />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#FF0000FF" />
 
                 <TextView
                     android:id="@+id/pages"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:textAlignment="center"
                     tools:text="236" />
-
-
-            </LinearLayout>
 
         </LinearLayout>
 
@@ -153,7 +122,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/genre_and_pages_layout"
             android:layout_centerHorizontal="true"
-            android:text="Buy now" />
+            android:layout_marginTop="16dp"
+            android:text="@string/buy" />
 
 
         <TextView
@@ -161,7 +131,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/buy_button"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             tools:text="Description" />
 
         <TextView
@@ -170,6 +140,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/description_title"
             android:layout_margin="8dp"
+            android:layout_marginBottom="16dp"
             tools:text="La La La La, La La La La, Elmo's world!
          La La La La, La La La La, Elmo's world!" />
 

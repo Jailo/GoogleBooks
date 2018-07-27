@@ -175,41 +175,52 @@ public final class QueryUtils {
                 // get Object that holds info about the particular book
                 JSONObject volumeInfo = currentBook.getJSONObject("volumeInfo");
 
-                // Get the Book's Title, Author, Publish date, Average rating,
-                // number of ratings, and the thumbnail image
+                // Get the book's title
                 String title = volumeInfo.getString("title");
 
+                // Get book's author by getting the array of authors, then the first name in list
                 JSONArray authorsArray = volumeInfo.getJSONArray("authors");
                 String author = authorsArray.get(0).toString();
 
+                // Get the book's published date
                 String publishedDate = volumeInfo.getString("publishedDate");
 
+                // Get the books average rating (i.e 4 Stars)
                 Double averageRating = volumeInfo.optDouble("averageRating");
 
+                // Get the number of ratings the book received
                 int ratingsCount = volumeInfo.optInt("ratingsCount");
 
+                // Get the Thumbnail image from the Image links object
                 JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
-
                 String thumbnailImageUrl = imageLinks.getString("thumbnail");
 
                 //Create Drawable image from the thumbnail image url
                 Drawable image = getImageFromUrl(thumbnailImageUrl);
 
+                // Get book's Description
                 String description = volumeInfo.getString("description");
 
+                // find the array of categories and get the first genre in the array
                 JSONArray categoriesArray = volumeInfo.optJSONArray("categories");
                 String genre = categoriesArray.getString(0);
 
+                // Get the number of pages in the book
                 int pageCount = volumeInfo.getInt("pageCount");
 
-                JSONObject saleInfo = currentBook.getJSONObject("saleInfo");
 
-                String forSale = saleInfo.getString("saleability");
-
+                // Get the Url link to where the book can be bought through google
                 String urlLink = volumeInfo.getString("infoLink");
 
+                // Find the sale info obj, and the for sale string
+                JSONObject saleInfo = currentBook.getJSONObject("saleInfo");
+                String forSale = saleInfo.getString("saleability");
+
+                // Set a empty string for the price
                 String price;
 
+                // If the book is for sale, Get the price and the currency code
+                // And set to price string
                 if (forSale.equals("FOR_SALE")) {
 
                     JSONObject retailPrice = saleInfo.getJSONObject("retailPrice");
