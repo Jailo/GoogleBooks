@@ -14,6 +14,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
+import org.w3c.dom.Text;
+
 public class BookInfoActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = BookInfoActivity.class.getName();
@@ -37,6 +39,9 @@ public class BookInfoActivity extends AppCompatActivity {
         //Find resource for the author text view, and set its text to be the current books author
         TextView author = (TextView) findViewById(R.id.author);
         author.setText(book.getAuthor());
+
+        TextView date = (TextView) findViewById(R.id.date);
+        date.setText(book.getDatePublished().substring(0, 4));
 
         //Find resourse for ratings bar
         RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
@@ -69,10 +74,16 @@ public class BookInfoActivity extends AppCompatActivity {
         TextView price = findViewById(R.id.price);
 
         //If the book's price is empty, meaning it is NOT for sale
-        // then set the price text view visibility to gone
         if (book.getPrice().isEmpty()) {
+
+            // find and set the price text view visibility to gone
             TextView priceTextView = findViewById(R.id.price);
             price.setVisibility(View.GONE);
+
+            // find and then set the first verticle line view visibility to gone
+            View verticleLine = findViewById(R.id.verticle_line);
+            verticleLine.setVisibility(View.GONE);
+
         } else {
             price.setText(book.getPrice());
         }

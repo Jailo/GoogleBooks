@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Google Books</string>
+    <string name="app_name">Book Finder</string>
     <string name="book_image_content_description">Book Cover Image</string>
     <string name="buy">Buy</string>
     <string name="no_internet">Not Connected To The Internet</string>

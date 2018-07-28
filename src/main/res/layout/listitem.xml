@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="150dp"
     android:background="?attr/selectableItemBackground">
 
     <ImageView
@@ -10,7 +10,7 @@
         android:layout_width="125dp"
         android:layout_height="150dp"
         android:contentDescription="@string/book_image_content_description"
-        android:scaleType="fitStart" />
+        android:scaleType="fitCenter" />
 
     <TextView
         android:id="@+id/title_TextView"
@@ -22,13 +22,13 @@
 
     <TextView
         android:id="@+id/author_TextView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title_TextView"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:layout_toEndOf="@id/image"
+        android:layout_toStartOf="@id/date_TextView"
         style="@style/AuthorStyle"
-        android:paddingTop="8dp"
+        android:maxLines="2"
         tools:text="Author" />
 
     <TextView
@@ -43,24 +43,32 @@
         android:gravity="center"
         tools:text="2018" />
 
-    <RatingBar
-        android:id="@+id/ratingBar"
+    <LinearLayout
         android:layout_width="wrap_content"
-        style="?android:attr/ratingBarStyleIndicator"
-        android:layout_below="@id/author_TextView"
-        android:isIndicator="true"
-        android:numStars="5"
-        android:layout_toEndOf="@id/image"
         android:layout_height="wrap_content"
-        android:stepSize="0.1" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_toEndOf="@id/image"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/ratingsCount"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_below="@id/author_TextView"
-        android:layout_toEndOf="@id/ratingBar"
-        android:gravity="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        tools:text="0" />
+        <RatingBar
+            android:id="@+id/ratingBar"
+            style="?android:attr/ratingBarStyleIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:stepSize="0.1" />
+
+        <TextView
+            android:id="@+id/ratingsCount"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            tools:text="0" />
+
+    </LinearLayout>
+
 </RelativeLayout>
