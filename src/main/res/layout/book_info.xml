@@ -123,6 +123,7 @@
             android:layout_below="@id/genre_and_pages_layout"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
+            android:foreground="?attr/selectableItemBackground"
             android:text="@string/buy" />
 
 
