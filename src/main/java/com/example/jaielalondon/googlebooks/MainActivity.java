@@ -16,9 +16,11 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -43,7 +45,22 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
      * Search bar text
      */
     private static String searchText;
+
+    /**
+     * Error text view
+     */
     private TextView errorTextView;
+
+    /**
+     * Spinning progress bar
+     */
+    private ProgressBar progressBar;
+
+    /**
+     * Loader Manager
+     */
+    private LoaderManager loaderManager;
+
 
     /**
      * This method hides the keyboard
@@ -81,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         adapter = new BooksAdapter(getBaseContext(), new ArrayList<Book>());
 
         // Find resource for the progress bar spinner
-        final ProgressBar progressBar = findViewById(R.id.progress_bar);
+        progressBar = findViewById(R.id.progress_bar);
 
         // Find resource for the List View
         ListView listView = findViewById(R.id.list_view);
@@ -106,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         if (isConnected) {
 
             // Create Resouce for Loader Manager
-            final LoaderManager loaderManager = getLoaderManager();
+            loaderManager = getLoaderManager();
 
             // Find resource for search bar
             SearchView searchBar = findViewById(R.id.search_bar);
@@ -162,9 +179,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoaderReset(Loader<List<Book>> loader) {
-        // Clear the adapter and reset the loader
+        // Clear the adapter, make loading progress bar visible, and reset the loader
         adapter.clear();
+        progressBar.setVisibility(View.VISIBLE);
         loader.reset();
+
 
     }
 
@@ -186,7 +205,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             // Then add all books to the adapter to show them in the  listview
             adapter.addAll(data);
         }
-
 
     }
 

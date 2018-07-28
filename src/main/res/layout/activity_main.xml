@@ -8,16 +8,20 @@
         android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:iconifiedByDefault="true"
+        android:iconifiedByDefault="false"
         android:queryHint="@string/searchQueryHint">
 
     </SearchView>
 
+
+    <!-- List of books that is only
+    visible when user searches for a book-->
     <ListView
         android:id="@+id/list_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_below="@id/search_bar">
+        android:layout_below="@id/search_bar"
+        android:dividerHeight="1dp">
     </ListView>
 
     <!-- Progress bar that is only visible when data is loading -->

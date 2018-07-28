@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
 
     <RelativeLayout
     android:layout_width="match_parent"
@@ -87,7 +88,7 @@
                 android:id="@+id/first_view"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="#FF0000FF" />
+                android:background="@color/colorPrimaryDark" />
 
                 <TextView
                     android:id="@+id/genre"
@@ -101,7 +102,7 @@
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="#FF0000FF" />
+                android:background="@color/colorPrimaryDark" />
 
                 <TextView
                     android:id="@+id/pages"
