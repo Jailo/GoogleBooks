@@ -26,7 +26,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Book>> {
+public class MainActivity extends AppCompatActivity
+        implements LoaderManager.LoaderCallbacks<List<Book>> {
 
 
     public static final String LOG_TAG = MainActivity.class.getName();
@@ -81,12 +82,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     @Override
-    public Loader<List<Book>> onCreateLoader(int id, Bundle args) {
-
-        return new BookLoader(this, searchText);
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -125,6 +120,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             // Create Resouce for Loader Manager
             loaderManager = getLoaderManager();
 
+            loaderManager.initLoader(0, null, this).forceLoad();
+
             // Find resource for search bar
             SearchView searchBar = findViewById(R.id.search_bar);
 
@@ -138,7 +135,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
                     progressBar.setVisibility(View.VISIBLE);
 
-                    //Restart the loader when the search button is clicked
+                    //initialize the loader with 0 for the id because this is the only loader
+                    // null for the bundle, and this activity for the loader callbacks
+                    // so that the data returned comes back here
                     loaderManager.restartLoader(0, null, MainActivity.this).forceLoad();
 
                     return true;
@@ -178,34 +177,41 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     @Override
-    public void onLoaderReset(Loader<List<Book>> loader) {
-        // Clear the adapter, make loading progress bar visible, and reset the loader
-        adapter.clear();
-        progressBar.setVisibility(View.VISIBLE);
-        loader.reset();
-
-
+    public Loader<List<Book>> onCreateLoader(int id, Bundle args) {
+        Log.v(LOG_TAG, "On Create Loader Called");
+        return new BookLoader(this, searchText);
     }
 
     @Override
-    public void onLoadFinished(Loader<List<Book>> loader, List<Book> data) {
+    public void onLoadFinished(Loader<List<Book>> loader, List<Book> bookList) {
+
         // Make progress bar invisible because we have finished loading
         ProgressBar progressBar = findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.GONE);
 
         Log.v(LOG_TAG, "On Load Finished");
 
+        // Clear adapter of all bookList
         adapter.clear();
 
-        if (data.isEmpty()) {
-            //If the list of books is empty, set error text view text
-            errorTextView.setText(R.string.cant_find_book);
-        } else {
-            // otherwise, if the list of books (aka data) is NOT empty
-            // Then add all books to the adapter to show them in the  listview
-            adapter.addAll(data);
+        //set error text view text to cant_find_book, this will only be visible if there are no books
+        errorTextView.setText(R.string.cant_find_book);
+
+        if (bookList != null && !bookList.isEmpty()) {
+            // if bookList is NOT empty or null,
+            // Then add all the books to the adapter to show them in the listview
+            adapter.addAll(bookList);
         }
 
+    }
+
+    @Override
+    public void onLoaderReset(Loader<List<Book>> loader) {
+        // Clear the adapter, make loading progress bar visible
+        adapter.clear();
+        progressBar.setVisibility(View.VISIBLE);
+
+        Log.v(LOG_TAG, "On Loader reset Called");
     }
 
 }

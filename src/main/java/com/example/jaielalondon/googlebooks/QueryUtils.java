@@ -199,11 +199,18 @@ public final class QueryUtils {
                 Drawable image = getImageFromUrl(thumbnailImageUrl);
 
                 // Get book's Description
-                String description = volumeInfo.getString("description");
+                String description = volumeInfo.optString("description");
 
                 // find the array of categories and get the first genre in the array
                 JSONArray categoriesArray = volumeInfo.optJSONArray("categories");
-                String genre = categoriesArray.getString(0);
+                String genre = "Cannot find genre";
+
+                if (categoriesArray != null) {
+                    // If categories array is not null, get genre
+                    // which is the first string in the array
+                    genre = categoriesArray.getString(0);
+                }
+
 
                 // Get the number of pages in the book
                 int pageCount = volumeInfo.getInt("pageCount");

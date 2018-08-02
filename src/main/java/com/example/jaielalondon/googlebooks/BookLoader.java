@@ -23,6 +23,11 @@ public class BookLoader extends AsyncTaskLoader<List<Book>> {
     public List<Book> loadInBackground() {
         Log.v("BookLoader", "ON LOAD in background has begun YO!");
 
+        // If search bar text is null then do nothing
+        if (mSearchBarText == null) {
+            return null;
+        }
+
         List<Book> books = QueryUtils.getBookList(mSearchBarText);
         return books;
     }
