@@ -120,7 +120,9 @@ public class MainActivity extends AppCompatActivity
             // Create Resouce for Loader Manager
             loaderManager = getLoaderManager();
 
-            loaderManager.initLoader(0, null, this).forceLoad();
+            //initialize the loader without using force load so that it waits until search
+            // has been submitted before it will load data in the background
+            loaderManager.initLoader(0, null, this);
 
             // Find resource for search bar
             SearchView searchBar = findViewById(R.id.search_bar);
@@ -135,7 +137,7 @@ public class MainActivity extends AppCompatActivity
 
                     progressBar.setVisibility(View.VISIBLE);
 
-                    //initialize the loader with 0 for the id because this is the only loader
+                    //restart the loader with 0 for the id because this is the only loader
                     // null for the bundle, and this activity for the loader callbacks
                     // so that the data returned comes back here
                     loaderManager.restartLoader(0, null, MainActivity.this).forceLoad();
