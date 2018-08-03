@@ -199,11 +199,11 @@ public final class QueryUtils {
                 Drawable image = getImageFromUrl(thumbnailImageUrl);
 
                 // Get book's Description
-                String description = volumeInfo.optString("description");
+                String description = volumeInfo.optString("description", String.valueOf(R.string.no_description_available));
 
                 // find the array of categories and get the first genre in the array
                 JSONArray categoriesArray = volumeInfo.optJSONArray("categories");
-                String genre = "Cannot find genre";
+                String genre = "";
 
                 if (categoriesArray != null) {
                     // If categories array is not null, get genre

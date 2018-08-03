@@ -1,20 +1,17 @@
 package com.example.jaielalondon.googlebooks;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toolbar;
-
-import org.w3c.dom.Text;
 
 public class BookInfoActivity extends AppCompatActivity {
 
@@ -76,8 +73,7 @@ public class BookInfoActivity extends AppCompatActivity {
         //If the book's price is empty, meaning it is NOT for sale
         if (book.getPrice().isEmpty()) {
 
-            // find and set the price text view visibility to gone
-            TextView priceTextView = findViewById(R.id.price);
+            // Set the price text view visibility to gone
             price.setVisibility(View.GONE);
 
             // find and then set the first verticle line view visibility to gone
@@ -85,6 +81,7 @@ public class BookInfoActivity extends AppCompatActivity {
             verticleLine.setVisibility(View.GONE);
 
         } else {
+            // Set price text view to the book's price
             price.setText(book.getPrice());
         }
 

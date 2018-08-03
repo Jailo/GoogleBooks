@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
-import android.database.Cursor;
-import android.inputmethodservice.Keyboard;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
@@ -15,12 +13,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -64,6 +59,12 @@ public class MainActivity extends AppCompatActivity
 
 
     /**
+     * Reference for the book List view
+     */
+    private ListView listView;
+
+
+    /**
      * This method hides the keyboard
      */
     public static void hideKeyboard(Activity activity) {
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity
         progressBar = findViewById(R.id.progress_bar);
 
         // Find resource for the List View
-        ListView listView = findViewById(R.id.list_view);
+        listView = findViewById(R.id.list_view);
 
         // Set adapter on listView
         listView.setAdapter(adapter);
@@ -120,8 +121,6 @@ public class MainActivity extends AppCompatActivity
             // Create Resouce for Loader Manager
             loaderManager = getLoaderManager();
 
-            //initialize the loader without using force load so that it waits until search
-            // has been submitted before it will load data in the background
             loaderManager.initLoader(0, null, this);
 
             // Find resource for search bar
@@ -137,10 +136,10 @@ public class MainActivity extends AppCompatActivity
 
                     progressBar.setVisibility(View.VISIBLE);
 
-                    //restart the loader with 0 for the id because this is the only loader
+                    // start or restart the loader with 0 for the id because this is the only loader
                     // null for the bundle, and this activity for the loader callbacks
                     // so that the data returned comes back here
-                    loaderManager.restartLoader(0, null, MainActivity.this).forceLoad();
+                    loaderManager.restartLoader(0, null, MainActivity.this);
 
                     return true;
                 }
@@ -193,7 +192,7 @@ public class MainActivity extends AppCompatActivity
 
         Log.v(LOG_TAG, "On Load Finished");
 
-        // Clear adapter of all bookList
+        // Clear adapter of all books in bookList
         adapter.clear();
 
         //set error text view text to cant_find_book, this will only be visible if there are no books
@@ -204,7 +203,6 @@ public class MainActivity extends AppCompatActivity
             // Then add all the books to the adapter to show them in the listview
             adapter.addAll(bookList);
         }
-
     }
 
     @Override

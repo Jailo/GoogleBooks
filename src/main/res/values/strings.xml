@@ -5,6 +5,7 @@
     <string name="no_internet">Not Connected To The Internet</string>
     <string name="cant_find_book">Couldn\'t Find The Book You Were Looking For</string>
     <string name="pages">Pages</string>
-    <string name="searchQueryHint">Search For A Book...</string>
+    <string name="searchQueryHint">Search For A Book&#8230;</string>
     <string name="description">Description</string>
+    <string name="no_description_available">No Description Available</string>
 </resources>
