@@ -15,7 +15,7 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask">
-            <!-- singleTask is used so that when a Intent is called it goes to an already running
+            <!-- singleTask is used so that when a new activity is started it goes to an already running
             app rather than starting a new one-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

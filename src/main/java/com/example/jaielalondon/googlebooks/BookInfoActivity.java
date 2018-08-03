@@ -7,11 +7,14 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import java.util.Objects;
 
 public class BookInfoActivity extends AppCompatActivity {
 
@@ -23,7 +26,7 @@ public class BookInfoActivity extends AppCompatActivity {
         setContentView(R.layout.book_info);
 
         //Enable the Up button in the nav bar
-        getSupportActionBar().setHomeButtonEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
 
         // Create a reference to the current book we want to display info on

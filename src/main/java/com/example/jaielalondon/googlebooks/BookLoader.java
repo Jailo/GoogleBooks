@@ -13,6 +13,8 @@ public class BookLoader extends AsyncTaskLoader<List<Book>> {
 
     private String mSearchBarText;
 
+    private List<Book> mBookList;
+
     public BookLoader(Context context, String searchBarText) {
         super(context);
         mSearchBarText = searchBarText;
@@ -35,6 +37,18 @@ public class BookLoader extends AsyncTaskLoader<List<Book>> {
 
     @Override
     protected void onStartLoading() {
-        forceLoad();
+
+        if (mBookList != null) {
+            deliverResult(mBookList);
+            Log.v("BookLoader", "book list is not null, get old booklist");
+        } else {
+            forceLoad();
+            Log.v("BookLoader", "book list is null, create a new booklist");
+        }
+    }
+
+    public void deliverResult(List<Book> books) {
+        mBookList = books;
+        super.deliverResult(books);
     }
 }

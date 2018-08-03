@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity
                     // start or restart the loader with 0 for the id because this is the only loader
                     // null for the bundle, and this activity for the loader callbacks
                     // so that the data returned comes back here
-                    loaderManager.restartLoader(0, null, MainActivity.this);
+                    loaderManager.restartLoader(0, null, MainActivity.this).forceLoad();
 
                     return true;
                 }
@@ -155,9 +155,6 @@ public class MainActivity extends AppCompatActivity
             // If the user is NOT connected to the internet
             // Display error message in error text view
             errorTextView.setText(R.string.no_internet);
-
-            // Make progress bar invisible because we have finished loading
-            progressBar.setVisibility(View.GONE);
         }
 
         // When a book is clicked, show info page about that book
@@ -186,8 +183,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onLoadFinished(Loader<List<Book>> loader, List<Book> bookList) {
 
-        // Make progress bar invisible because we have finished loading
-        ProgressBar progressBar = findViewById(R.id.progress_bar);
+        // Make progress bar visibility to gone because we have finished loading
         progressBar.setVisibility(View.GONE);
 
         Log.v(LOG_TAG, "On Load Finished");
