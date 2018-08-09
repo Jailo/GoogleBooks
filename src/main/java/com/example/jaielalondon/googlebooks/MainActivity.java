@@ -18,11 +18,13 @@ import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-        implements LoaderManager.LoaderCallbacks<List<Book>> {
+        implements LoaderManager.LoaderCallbacks<List<Book>>, View.OnClickListener {
 
 
     public static final String LOG_TAG = MainActivity.class.getName();
@@ -63,7 +65,6 @@ public class MainActivity extends AppCompatActivity
      */
     private ListView listView;
 
-
     /**
      * This method hides the keyboard
      */
@@ -87,6 +88,8 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        TextView back = findViewById(R.id.back);
+        back.setOnClickListener(this);
         // KeyBoard is always hidden unless the user clicks on an editText field
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
@@ -121,7 +124,8 @@ public class MainActivity extends AppCompatActivity
             // Create Resouce for Loader Manager
             loaderManager = getLoaderManager();
 
-            loaderManager.initLoader(0, null, this);
+            // Initiate Loader
+            //loaderManager.initLoader(0, null, this);
 
             // Find resource for search bar
             SearchView searchBar = findViewById(R.id.search_bar);
@@ -172,11 +176,17 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        // Find resource for, and set on click listener for fiction text view
+        TextView fiction = findViewById(R.id.fiction);
+        fiction.setOnClickListener(this);
+
     }
 
     @Override
     public Loader<List<Book>> onCreateLoader(int id, Bundle args) {
-        Log.v(LOG_TAG, "On Create Loader Called");
+
+        progressBar.setVisibility(View.VISIBLE);
+        Log.v(LOG_TAG, "On Create Loader Called: \n" + searchText);
         return new BookLoader(this, searchText);
     }
 
@@ -210,4 +220,29 @@ public class MainActivity extends AppCompatActivity
         Log.v(LOG_TAG, "On Loader reset Called");
     }
 
+    @Override
+    public void onClick(View v) {
+
+        Log.v(LOG_TAG, "Something has been clicked");
+        //Set search text to search for keywords and categories, rather than for specific book titles
+        searchText = "subject:";
+        switch (v.getId()) {
+
+            case R.id.fiction:
+                searchText += getString(R.string.fiction);
+                Log.v(LOG_TAG, "Fiction has been clicked");
+                break;
+
+            case R.id.back:
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
+                break;
+
+            default:
+                //Do nothing
+                break;
+        }
+        loaderManager.restartLoader(0, null, this);
+    }
 }

@@ -8,11 +8,24 @@
         android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:iconifiedByDefault="false"
+        android:iconifiedByDefault="true"
         android:queryHint="@string/searchQueryHint">
 
     </SearchView>
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/search_bar"
+        android:layout_margin="16dp">
+
+        <TextView
+            android:id="@+id/fiction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fiction" />
+    </LinearLayout>
 
     <!-- List of books that is only
     visible when user searches for a book-->
@@ -21,7 +34,8 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_below="@id/search_bar"
-        android:dividerHeight="1dp">
+        android:dividerHeight="1dp"
+        android:visibility="invisible">
     </ListView>
 
     <!-- Progress bar that is only visible when data is loading -->
@@ -42,4 +56,9 @@
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
+    <TextView
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="back" />
 </RelativeLayout>

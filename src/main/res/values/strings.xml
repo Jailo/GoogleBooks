@@ -8,4 +8,19 @@
     <string name="searchQueryHint">Search For A Book&#8230;</string>
     <string name="description">Description</string>
     <string name="no_description_available">No Description Available</string>
+
+    <!-- The language code for the language the user speaks-->
+    <string name="language_code">en</string>
+
+    <!--Strings for the book genres-->
+    <string name="bussiness_and_economics">Business &amp; Economics</string>
+    <string name="self_help">Self-Help</string>
+    <string name="fiction">Fiction</string>
+    <string name="young_adult_fiction">Young Adult Fiction</string>
+    <string name="juvenile_fiction">Juvenile Fiction</string>
+    <string name="drama">Drama</string>
+    <string name="biography_and_autobiography">Biography &amp; Autobiography</string>
+    <string name="religion">Religion</string>
+    <string name="health_and_fitness">Health &amp; Fitness</string>
+    <string name="history">History</string>
 </resources>

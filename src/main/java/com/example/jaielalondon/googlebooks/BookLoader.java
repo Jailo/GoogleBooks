@@ -11,13 +11,21 @@ import java.util.List;
  */
 public class BookLoader extends AsyncTaskLoader<List<Book>> {
 
+    /**
+     * text that was in the search bar when the user clicked submit
+     */
     private String mSearchBarText;
 
+    /** thisb list will contain a list a books the user searched for */
     private List<Book> mBookList;
 
     public BookLoader(Context context, String searchBarText) {
         super(context);
-        mSearchBarText = searchBarText;
+        // set mSearchBarText to the text the user inputs, and
+        // only return books in the users language using R.string.language_code,
+        // and only return 40 books maximum
+        mSearchBarText = searchBarText + "&langRestrict=" +
+                context.getString(R.string.language_code) + "&maxResults=40";
 
     }
 
@@ -31,6 +39,7 @@ public class BookLoader extends AsyncTaskLoader<List<Book>> {
             return null;
         }
 
+        // Create & return a list of books by calling QueryUtils' get books list method
         List<Book> books = QueryUtils.getBookList(mSearchBarText);
         return books;
     }
@@ -38,17 +47,24 @@ public class BookLoader extends AsyncTaskLoader<List<Book>> {
     @Override
     protected void onStartLoading() {
 
+        // If list of books is NOT null, deliver the existing list of books
         if (mBookList != null) {
             deliverResult(mBookList);
             Log.v("BookLoader", "book list is not null, get old booklist");
         } else {
+            // else, call force load to create a new list
             forceLoad();
             Log.v("BookLoader", "book list is null, create a new booklist");
         }
     }
 
+    /**
+     * Save book list data for later retrieval.
+     * @param books is the list of books
+     */
     public void deliverResult(List<Book> books) {
         mBookList = books;
+        //Returns cached book list data
         super.deliverResult(books);
     }
 }
