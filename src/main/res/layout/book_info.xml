@@ -125,7 +125,7 @@
                 android:layout_weight="1"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                tools:text="236" />
+                tools:text="236 Pages" />
 
         </LinearLayout>
 

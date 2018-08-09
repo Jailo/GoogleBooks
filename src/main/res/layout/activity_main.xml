@@ -20,8 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_below="@id/search_bar"
-        android:dividerHeight="1dp"
-        android:visibility="invisible">
+        android:dividerHeight="1dp">
     </ListView>
 
     <!-- Progress bar that is only visible when data is loading -->
