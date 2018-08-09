@@ -24,8 +24,7 @@ public class BookLoader extends AsyncTaskLoader<List<Book>> {
         // set mSearchBarText to the text the user inputs, and
         // only return books in the users language using R.string.language_code,
         // and only return 40 books maximum
-        mSearchBarText = searchBarText + "&langRestrict=" +
-                context.getString(R.string.language_code) + "&maxResults=40";
+        mSearchBarText = searchBarText;
 
     }
 

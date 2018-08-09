@@ -13,20 +13,6 @@
 
     </SearchView>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/search_bar"
-        android:layout_margin="16dp">
-
-        <TextView
-            android:id="@+id/fiction"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/fiction" />
-    </LinearLayout>
-
     <!-- List of books that is only
     visible when user searches for a book-->
     <ListView
@@ -56,9 +42,4 @@
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
-    <TextView
-        android:id="@+id/back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="back" />
 </RelativeLayout>
