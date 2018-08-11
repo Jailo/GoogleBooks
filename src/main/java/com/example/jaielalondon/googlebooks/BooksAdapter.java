@@ -61,12 +61,15 @@ public class BooksAdapter extends ArrayAdapter<Book> {
         if (currentBook.getRatingCount() == 0) {
             ratingBar.setVisibility(View.GONE);
             ratingsCount.setVisibility(View.GONE);
+            Log.v(LOG_TAG, currentBook.getTitle() + "Has  0 Ratings");
         } else {
-            // set ratings bar stars to the books average rating (I.e 4/5 Stars)
-            ratingBar.setRating(((float) currentBook.getAverageRating()));
-
-            // Set text to the current books ratings count
+            ratingBar.setVisibility(View.VISIBLE);
+            ratingsCount.setVisibility(View.VISIBLE);
+            // set ratings bar stars to the books average rating (I.e 4.5 Stars)
+            ratingBar.setRating((float) currentBook.getAverageRating());
+            // Set ratings count text to the current books number of people who rated the book
             ratingsCount.setText(String.valueOf(currentBook.getRatingCount()));
+            Log.v(LOG_TAG, currentBook.getTitle() + " is Rated " + currentBook.getAverageRating() + "Stars");
         }
 
         //Find resource for image view and set to the current books image

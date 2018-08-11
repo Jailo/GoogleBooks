@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity
         // set SearchText to the text the user inputs, and to
         // only return books in the users language using R.string.language_code,
         // and only return 40 books maximum
-        searchText = searchText + "&langRestrict=" + getString(R.string.language_code) + "&maxResults=40";
+        searchText = searchText + "&maxResults=40" + "&langRestrict=" + getString(R.string.language_code);
         Log.v(LOG_TAG, "On Create Loader Called: \n" + searchText);
         return new BookLoader(this, searchText);
     }
